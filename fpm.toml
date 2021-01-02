@@ -1,0 +1,16 @@
+name = "math"
+version = "0.1.0"
+license = "MIT"
+author = "Arttu Räsänen"
+maintainer = "arttu.rasanen@protonmail.com"
+copyright = "2021 Arttu Räsänen"
+
+
+[library]
+source-dir="src"
+
+[[test]]
+name="runTests"
+source-dir="test"
+main="main.f90"
+
