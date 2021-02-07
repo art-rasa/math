@@ -9,6 +9,8 @@ contains
     
     !  
     !  name: gcDenom
+    !  desc: Calculates the greatest common denominator of two integer
+    !        numbers.
     !  @param a: integer number. 
     !  @param b: integer number. 
     !  @return Greatest common denominator of a and b. 
@@ -54,6 +56,7 @@ contains
     
     !  
     !  name: numDigits
+    !  desc: Calculates the number of digits of an integer value.
     !  @param n: integer number
     !  @return Number of digits in n.
     !  
@@ -75,6 +78,8 @@ contains
     
     ! 
     ! name: quadDiscriminant
+    ! desc: Calculates the discriminant of a quadratic equation of the
+    !       form "ax² + bx + c = 0".
     ! @param a: second degree term 
     ! @param b: first degree term
     ! @param c: constant term
@@ -89,6 +94,16 @@ contains
         discr = b**2 - 4*a*c
     end function
     
+    ! 
+    ! name: quadSolve
+    ! desc: Finds the real roots of a quadratic equation of the form
+    !       "ax² + bx + c = 0".
+    ! @param a: second degree term
+    ! @param b: first degree term
+    ! @param c: constant term
+    ! @param num_roots: number of found roots
+    ! @param roots: found roots are placed on this array 
+    ! 
     subroutine quadSolve(a, b, c, num_roots, roots) 
         real, intent(in) :: a
         real, intent(in) :: b
@@ -116,6 +131,7 @@ contains
             end if
         end if
         
+        ! Swaps the roots into increasing order.
         if (num_roots == 2) then
             if (roots(1) > roots(2)) then
                 tmp = roots(1)
