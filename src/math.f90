@@ -73,6 +73,60 @@ contains
         
     end function
     
+    ! 
+    ! name: quadDiscriminant
+    ! @param a: second degree term 
+    ! @param b: first degree term
+    ! @param c: constant term
+    ! @return: Discriminant of a quadratic equation of the form 
+    !          "ax² + bx + c = 0".
+    function quadDiscriminant(a, b, c) result(discr)
+        real, intent(in) :: a
+        real, intent(in) :: b
+        real, intent(in) :: c
+        real :: discr
+        
+        discr = b**2 - 4*a*c
+    end function
+    
+    subroutine quadSolve(a, b, c, num_roots, roots) 
+        real, intent(in) :: a
+        real, intent(in) :: b
+        real, intent(in) :: c
+        integer, intent(out) :: num_roots
+        real, dimension(2), intent(out) :: roots
+        real :: discr
+        real :: tmp
+        
+        discr = quadDiscriminant(a, b, c)
+        num_roots = 0
+        
+        if (discr < 0.0) then ! No real roots.
+            num_roots = 0
+            
+        else if ((discr > 0.0) .and. (a /= 0.0)) then ! Two real roots.
+            num_roots = 2
+            roots(1) = (-b + sqrt(discr)) / (2.0*a)
+            roots(2) = (-b - sqrt(discr)) / (2.0*a)
+            
+        else ! One real root
+            if (a /= 0.0) then
+                num_roots = 1
+                roots(1) = (-b) / (2.0*a)
+            end if
+        end if
+        
+        if (num_roots == 2) then
+            if (roots(1) > roots(2)) then
+                tmp = roots(1)
+                roots(1) = roots(2)
+                roots(2) = tmp
+            end if
+        end if
+        
+        
+    end subroutine
+    
 end module
 
 
