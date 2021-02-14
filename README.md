@@ -10,8 +10,9 @@ Currently implemented are:
 | --------- | ----------- |
 | *gcDenom* | Returns the greatest common denominator of two integer numbers. |
 | *numDigits* | Returns the number of digits in an integer number |
-| *quadDiscriminant* | Calculates the discriminant of a quadratic equation of the form $ax^2 + bx + c = 0$. |
-| *quadSolve* | Finds the real roots of a quadratic equation of the form $ax^2 + bx + c = 0$.
+| *quadDiscriminant* | Calculates the discriminant of a quadratic equation of the form a*x^2 + b*x + c = 0. |
+| *quadSolve* | Finds the real roots of a quadratic equation of the form a*x^2 + b*x + c = 0. |
+| *binaryGap* | Computes the number of bits in the longest continuous streak of 0-bits (or alternatively 1-bits) that are surrounded by 1-bits (or alternatively 0-bits) in an integer number. |
 
 The library includes a simple driver/test program. It allows the user to test the operation of the procedures for possible errors.
 
