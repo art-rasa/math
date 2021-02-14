@@ -143,6 +143,77 @@ contains
         
     end subroutine
     
+    !  
+    !  name: binaryGap
+    !  desc: Finds the length of the longest continuous streak of bits
+    !        that have the value 0 (or 1) between two 1- (or 0) bits.
+    !        The function must be called with an integer number 
+    !        argument.
+    !  @param num: integer number, whose bitwise representation is
+    !              to be processed. Mandatory parameter.
+    !  @param gap_type: logical variable that sets the type of gap to 
+    !                   search. When gap==false; gap of 0-bits is 
+    !                   searched (default). When gap==true; gap of 
+    !                   1-bits is searched. Optional parameter.
+    !  @return: The length (as an integer) of the longest streak of 0- 
+    !           or 1-bits in the input argument.
+    !  
+    function binaryGap(num, gap) result(max_gap)
+        integer, intent(in) :: num
+        logical, intent(in), optional :: gap
+        
+        logical :: mode
+        integer :: i
+        integer :: num_bits
+        integer :: max_gap
+        integer :: bit
+        integer :: start_bit_pos
+        integer :: end_bit_pos
+        integer :: current_gap
+        
+        ! mode selection; searching for 1-bits or 0-bits.
+        if (present(gap)) then
+            mode = gap
+        else
+            mode = .false.
+        end if
+        
+        num_bits = bit_size(num)
+        max_gap = 0
+        start_bit_pos = -1
+        end_bit_pos = -1
+        current_gap = 0
+        
+        do i = 0, (num_bits - 1)
+            bit = ibits(num, i, 1)
+            
+            if (((bit /= 0) .and. (mode .eqv. .false.)) .or. &
+                ((bit == 0) .and. (mode .eqv. .true.))) &
+            then
+                if (start_bit_pos < 0) then
+                    start_bit_pos = i
+                else if (start_bit_pos >= 0) then
+                    start_bit_pos = i
+                    
+                    if (max_gap < current_gap) then
+                        max_gap = current_gap
+                    end if
+                    
+                end if
+                current_gap = 0
+            end if
+            
+            
+            if (((bit == 0) .and. (mode .eqv. .false.)) .or. &
+                ((bit /= 0) .and. (mode .eqv. .true.))) &
+            then
+                current_gap = current_gap + 1
+            end if
+            
+        end do
+        
+    end function
+    
 end module
 
 
