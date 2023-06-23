@@ -76,6 +76,60 @@ contains
         
     end function
     
+    !
+    !  name: realWholePart
+    !  desc: Return the whole part of a real value.
+    !  @param r_num: real number
+    !  @return The whole part of a real value as an integer.
+    !
+    integer function realWholePart(r_num) result(whole_part)
+        real, intent(in) :: r_num
+        
+        whole_part = int(r_num)
+    end function
+    
+    !
+    !  name: realFracPart
+    !  desc: Return the fractional part of a real value.
+    !  @param r_num: real number
+    !  @return The fractional part of a real value as an integer.
+    !
+    integer function realFracPart(r_num) result(frac_part)
+        real, intent(in) :: r_num
+        integer :: n_dec
+        integer :: expo
+        real :: temp
+        
+        n_dec = realNumDecimals(r_num)
+        print *, 'n_dec:', n_dec
+        expo = 10 ** n_dec
+        
+        temp = (r_num - int(r_num)) * expo
+        frac_part = int(temp)
+    end function
+    
+    !
+    !  name: realNumDecimals
+    !  desc: Return the number of decimals in a real value.
+    !  @param r_num: real number
+    !  @return The number of decimals as an integer.
+    !
+    integer function realNumDecimals(r_num) result(n_dec)
+        real, intent(in) :: r_num
+        real :: eps 
+        real :: expo
+        
+        eps = epsilon( real(0) )
+        expo = 1.0
+        n_dec = 0
+        
+        do while (abs( (r_num * expo) - int(r_num * expo) ) > eps)
+            n_dec = n_dec + 1
+            eps = eps * 10.0
+            expo = expo * 10.0
+        end do
+    end function
+    
     ! 
     ! name: quadDiscriminant
     ! desc: Calculates the discriminant of a quadratic equation of the

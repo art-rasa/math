@@ -13,6 +13,8 @@ program math_test
     print *, '  2: numDigits()'
     print *, '  3: quadSolve()'
     print *, '  4: binaryGap()'
+    print *, '  5: realNumDecimals()'
+    print *, '  6: realFracPart()'
     print *, '  0: test all'
     read(*, '(i3)') selection
     
@@ -29,11 +31,18 @@ program math_test
     case (4)
         call testBinaryGap()
     
+    case (5)
+        call testRealNumDecimals()
+        
+    case (6)
+        call testRealFracPart()
+        
     case (0)
         call testGreatestCommonDenominator()
         call testNumDigits()
         call testQuadratics()
         call testBinaryGap()
+        call testRealNumDecimals()
     end select
     
 contains
@@ -179,6 +188,123 @@ contains
         write(*, '(a,i0,a,i2)') 'Binary gap (1-bits) of ', num, ' is: ', gap
     end subroutine
     
+    subroutine testRealNumDecimals()
+        real :: r
+        integer :: n
+        character(len=*), parameter :: res_fmt = '(a,f0.15,a,i0)'
+        
+        print *, ''
+        print *, '-----testing realNumDecimals()-----'
+        
+        r = 1.23
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 1.234
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 1.235
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 1.236
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 1
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 0
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 0.0002
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 0.00002
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 0.000002
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 0.0000002
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 0.00000002
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 12
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 12.0
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 12.1
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 12.123456
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 12.1234567
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = 12.12345678
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = -1
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        r = -1.9001
+        n = realNumDecimals(r)
+        write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+    end subroutine
+    
+    subroutine testRealFracPart()
+        real :: r
+        integer :: n
+        character(len=*), parameter :: res_fmt = '(a,f0.15,a,i0)'
+        
+        print *, ''
+        print *, '-----testing realFracPart()-----'
+        
+        r = 1.23
+        n = realFracPart(r)
+        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
+        
+        r = 1.023
+        n = realFracPart(r)
+        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
+        
+        r = 1.0023
+        n = realFracPart(r)
+        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
+        
+        r = 1.00023
+        n = realFracPart(r)
+        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
+        
+        r = 1.000023
+        n = realFracPart(r)
+        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
+        
+        r = 1.0000023
+        n = realFracPart(r)
+        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
+    end subroutine
 end program
 
 
