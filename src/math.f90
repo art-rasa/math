@@ -101,7 +101,6 @@ contains
         real :: temp
         
         n_dec = realNumDecimals(r_num)
-        print *, 'n_dec:', n_dec
         expo = 10 ** n_dec
         
         temp = (r_num - int(r_num)) * expo
