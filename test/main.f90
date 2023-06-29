@@ -193,8 +193,8 @@ contains
         integer :: n
         character(len=*), parameter :: res_fmt = '(a,f0.15,a,i0)'
         
+        print *, ':::: realNumDecimals() ::::'
         print *, ''
-        print *, '-----testing realNumDecimals()-----'
         
         r = 1.23
         n = realNumDecimals(r)
@@ -271,37 +271,35 @@ contains
         r = -1.9001
         n = realNumDecimals(r)
         write(*, res_fmt) 'Number of decimals of ', r, ' is: ', n
+        
+        print *, ':::: End of test ::::'
     end subroutine
     
     subroutine testRealFracPart()
-        real :: r
+        print *, ':::: realFracPart() ::::'
+        print *, ''
+        
+        call testRealFracPart_driver(1.23)
+        call testRealFracPart_driver(1.023)
+        call testRealFracPart_driver(1.0023)
+        call testRealFracPart_driver(1.00023)
+        call testRealFracPart_driver(1.000023)
+        call testRealFracPart_driver(1.0000023)
+        call testRealFracPart_driver(2.6)
+        
+        print *, ''
+        print *, ':::: End of test ::::'
+    end subroutine
+    
+    ! 
+    ! Test driver procedures
+    ! 
+    
+    subroutine testRealFracPart_driver(r)
+        real, intent(in) :: r
         integer :: n
         character(len=*), parameter :: res_fmt = '(a,f0.15,a,i0)'
         
-        print *, ''
-        print *, '-----testing realFracPart()-----'
-        
-        r = 1.23
-        n = realFracPart(r)
-        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
-        
-        r = 1.023
-        n = realFracPart(r)
-        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
-        
-        r = 1.0023
-        n = realFracPart(r)
-        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
-        
-        r = 1.00023
-        n = realFracPart(r)
-        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
-        
-        r = 1.000023
-        n = realFracPart(r)
-        write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
-        
-        r = 1.0000023
         n = realFracPart(r)
         write(*, res_fmt) 'Fractional part of ', r, ' is: ', n
     end subroutine

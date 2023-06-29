@@ -102,8 +102,8 @@ contains
         
         n_dec = realNumDecimals(r_num)
         expo = 10 ** n_dec
-        
-        temp = (r_num - int(r_num)) * expo
+
+        temp = anint( (r_num - int(r_num)) * expo )
         frac_part = int(temp)
     end function
     
